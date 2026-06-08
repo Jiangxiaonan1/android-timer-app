@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">专注计时器</string>
+    <string name="btn_start">开始计时</string>
+    <string name="btn_pause">暂停计时</string>
+    <string name="btn_reset">重置计时</string>
+    <string name="notification_channel_name">专注计时</string>
+    <string name="notification_channel_desc">计时运行中</string>
+    <string name="notification_title">专注计时运行中</string>
+    <string name="notification_text">已计时 %1$s / 60:00</string>
+    <string name="notification_completed">专注 60 分钟已完成</string>
+</resources>

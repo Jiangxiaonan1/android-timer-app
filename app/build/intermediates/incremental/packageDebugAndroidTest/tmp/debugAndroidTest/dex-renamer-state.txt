@@ -1,0 +1,4 @@
+#Mon Jun 08 20:25:45 CST 2026
+base.0=D\:\\vscode-repository\\android-app\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
+path.0=0/classes.dex
+renamed.0=classes.dex
