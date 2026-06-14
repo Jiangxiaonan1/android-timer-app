@@ -27,7 +27,7 @@ import java.util.Locale
  * 主界面 Activity —— 负责「看得见、摸得着」的部分
  *
  * 职责分工：
- * - 显示全屏屏保 UI（黑底、双时钟、三个按钮）
+ * - 显示全屏屏保 UI（背景轮播、双时钟、三个按钮）
  * - 每秒刷新手机当前系统时间
  * - 把用户的按钮操作转发给 TimerService
  * - 接收 Service 广播，更新计时时长显示
@@ -41,6 +41,9 @@ class MainActivity : AppCompatActivity() {
 
     // 主线程定时器，用于每秒刷新「系统时间」
     private val handler = Handler(Looper.getMainLooper())
+
+    // 背景图片轮播
+    private var backgroundSlideshow: BackgroundSlideshow? = null
 
     // 以下三个变量是界面侧的「镜像状态」，数据源头在 TimerService
     private var elapsedSeconds = 0   // 已计秒数
@@ -98,6 +101,7 @@ class MainActivity : AppCompatActivity() {
 
         setupFullscreen()                        // 全屏沉浸式
         setupScreenOn()                          // 屏幕常亮
+        setupBackgroundSlideshow()               // 木叶杂志背景轮播
         requestNotificationPermissionIfNeeded()  // 申请通知权限
         setupButtons()                           // 绑定按钮点击
         updateButtonStates()                     // 初始化按钮可用状态
@@ -120,6 +124,7 @@ class MainActivity : AppCompatActivity() {
             registerReceiver(tickReceiver, filter)
         }
         handler.post(systemClockRunnable)  // 开始刷新系统时间
+        backgroundSlideshow?.start()       // 开始背景轮播
         // 向 Service 询问当前状态（解决从后台切回时界面不同步的问题）
         sendServiceAction(TimerService.ACTION_QUERY_STATE)
     }
@@ -130,6 +135,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onStop() {
         super.onStop()
+        backgroundSlideshow?.stop()
         handler.removeCallbacks(systemClockRunnable)
         unregisterReceiver(tickReceiver)
     }
@@ -169,6 +175,21 @@ class MainActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             )
+    }
+
+    override fun onDestroy() {
+        backgroundSlideshow?.release()
+        backgroundSlideshow = null
+        super.onDestroy()
+    }
+
+    /** 初始化木叶杂志背景轮播 */
+    private fun setupBackgroundSlideshow() {
+        backgroundSlideshow = BackgroundSlideshow(
+            binding.ivBgCurrent,
+            binding.ivBgNext,
+            assets
+        )
     }
 
     /** 屏幕常亮，计时过程中不会自动息屏 */

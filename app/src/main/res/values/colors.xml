@@ -7,4 +7,9 @@
     <color name="button_bg">#33FFFFFF</color>
     <color name="button_text">#FFFFFFFF</color>
     <color name="ic_launcher_background">#000000</color>
+
+    <!-- 【常改】背景图上的半透明遮罩，保证白字可读
+         格式 #AARRGGBB：前两位 AA 是透明度，00=全透明 FF=不透明
+         40% 黑 ≈ #66000000，更暗可改为 #99000000，更亮可改为 #33000000 -->
+    <color name="background_overlay">#66000000</color>
 </resources>

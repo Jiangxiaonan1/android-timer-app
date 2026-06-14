@@ -8,6 +8,48 @@
     android:fitsSystemWindows="false"
     tools:context=".MainActivity">
 
+    <!-- 背景轮播层 -->
+    <FrameLayout
+        android:id="@+id/backgroundContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--
+            scaleType 说明（可手动改）：
+            fitCenter   = 完整显示整张图，不裁剪，可能有黑边（当前）
+            centerCrop  = 铺满屏幕，会放大并裁掉超出部分
+        -->
+        <ImageView
+            android:id="@+id/ivBgCurrent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/ivBgNext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter" />
+
+    </FrameLayout>
+
+    <!-- 半透明遮罩，保证时钟和按钮可读 -->
+    <View
+        android:id="@+id/backgroundOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/background_overlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- 上方：系统实时时间 -->
     <TextView
         android:id="@+id/tvSystemTime"
@@ -15,6 +57,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="monospace"
         android:letterSpacing="0.05"
+        android:shadowColor="@color/black"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="8"
         android:textColor="@color/system_time"
         android:textSize="48sp"
         android:textStyle="normal"
@@ -33,6 +79,10 @@
         android:layout_marginTop="48dp"
         android:fontFamily="monospace"
         android:letterSpacing="0.08"
+        android:shadowColor="@color/black"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="10"
         android:text="00:00:00"
         android:textColor="@color/timer_highlight"
         android:textSize="72sp"
